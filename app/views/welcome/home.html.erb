@@ -6,6 +6,27 @@
   <div id="user-<%= user.id %>"></div>
   <button class="js-games-played" data-id="<%= user.id %>">Games Played</button>
 
+  <ul id="user-<%= user.id %>-games">
+
+  </ul>
+
 <% end %>
 
+<script type="text/javascript" charset="utf-8">
+$(function() {
+  $(".js-games-played").on("click", function() {
+    var id = $(this).data("id");
+    $.get("/users/" + id + ".json", function(data) {
+        var user = data;
+        var userGames = data["games"];
+        var gamesList = "";
+        userGames.forEach(function(game) {
+          gamesList += '<li class="js-game" data-id="' + game["id"] + '">' + game["title"] + '</li>';
+        });
+        $("#user-"+ id + "-games").html(gamesList);
+  
 
+      });
+  });
+});
+</script>

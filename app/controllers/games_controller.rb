@@ -8,6 +8,11 @@ class GamesController < ApplicationController
     @game = Game.create(game_params)
   end
 
+  def show
+    @game = Game.find(params[:id])
+    render json: @game, status: 200
+  end
+
   private
 
     def game_params
